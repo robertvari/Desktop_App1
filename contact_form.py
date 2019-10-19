@@ -33,21 +33,31 @@ class ContactForm(QWidget):
         # connect signals
         save_btn.clicked.connect(self.save_action)
 
+    def check_fields(self):
+
+        for k,v in self.user_data.items():
+            if not len(v):
+                print(f'{k} has no value!')
+                return False
+
+        return True
+
     def save_action(self):
-        user_data = {
+        self.user_data = {
             "name": self.name_field.text(),
             "phone": self.phone_field.text(),
             "email": self.email_field.text(),
             "address": self.address_field.text(),
         }
 
-        with open("contact_list.json", "a") as f:
-            json.dump(user_data, f)
+        if self.check_fields():
+            with open("contact_list.json", "a") as f:
+                json.dump(self.user_data, f)
 
-        self.name_field.clear()
-        self.phone_field.clear()
-        self.email_field.clear()
-        self.address_field.clear()
+            self.name_field.clear()
+            self.phone_field.clear()
+            self.email_field.clear()
+            self.address_field.clear()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
