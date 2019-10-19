@@ -30,6 +30,12 @@ class ContactForm(QWidget):
         save_btn = QPushButton("Save")
         main_layout.addWidget(save_btn)
 
+        # connect signals
+        save_btn.clicked.connect(self.save_action)
+
+    def save_action(self):
+        print("save_action")
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     win = ContactForm()
