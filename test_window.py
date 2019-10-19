@@ -9,10 +9,13 @@ class MyWindow(QWidget):
 
         main_layout = QVBoxLayout(self)
 
-        for _ in range(4):
-            button = QPushButton("Click Me")
-            main_layout.addWidget(button)
+        button = QPushButton("Click Me")
+        main_layout.addWidget(button)
 
+        button.clicked.connect(self.test_click)
+
+    def test_click(self):
+        print("Button clicked")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
