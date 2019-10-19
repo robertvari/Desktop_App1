@@ -11,21 +11,21 @@ class ContactForm(QWidget):
         main_layout = QVBoxLayout(self)
 
         # line edits
-        name_field = QLineEdit()
-        name_field.setPlaceholderText("Name...")
-        main_layout.addWidget(name_field)
+        self.name_field = QLineEdit()
+        self.name_field.setPlaceholderText("Name...")
+        main_layout.addWidget(self.name_field)
 
-        phone_field = QLineEdit()
-        phone_field.setPlaceholderText("Phone...")
-        main_layout.addWidget(phone_field)
+        self.phone_field = QLineEdit()
+        self.phone_field.setPlaceholderText("Phone...")
+        main_layout.addWidget(self.phone_field)
 
-        email_field = QLineEdit()
-        email_field.setPlaceholderText("Email...")
-        main_layout.addWidget(email_field)
+        self.email_field = QLineEdit()
+        self.email_field.setPlaceholderText("Email...")
+        main_layout.addWidget(self.email_field)
 
-        address_field = QLineEdit()
-        address_field.setPlaceholderText("Address...")
-        main_layout.addWidget(address_field)
+        self.address_field = QLineEdit()
+        self.address_field.setPlaceholderText("Address...")
+        main_layout.addWidget(self.address_field)
 
         save_btn = QPushButton("Save")
         main_layout.addWidget(save_btn)
@@ -34,7 +34,20 @@ class ContactForm(QWidget):
         save_btn.clicked.connect(self.save_action)
 
     def save_action(self):
-        print("save_action")
+        user_data = {
+            "name": self.name_field.text(),
+            "phone": self.phone_field.text(),
+            "email": self.email_field.text(),
+            "address": self.address_field.text(),
+        }
+
+        with open("contact_list.json", "a") as f:
+            json.dump(user_data, f)
+
+        self.name_field.clear()
+        self.phone_field.clear()
+        self.email_field.clear()
+        self.address_field.clear()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
